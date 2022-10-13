@@ -1,21 +1,16 @@
 {
-  "name": "starter-rest-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "nodejs-postgresql",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "dev": "env-cmd nodemon index.js",
-    "repl": "env-cmd node"
-  },
-  "keywords": [],
-  "author": "Kam Lasater <kam.lasater@cyclic.sh>",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "cyclic-dynamodb": "0.0.21",
-    "env-cmd": "^10.1.0",
-    "express": "^4.18.1"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "pg": "^8.8.0"
   }
 }
