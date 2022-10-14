@@ -18,7 +18,7 @@ var getUsers = (request, response) => {
         throw error;
       }
       response.send(results);
-      return results;
+      //return results;
     };
   });
 };
@@ -82,7 +82,7 @@ router.get(
     let sql = "SELECT UserID FROM User WHERE UserName like '" + UserName + "'";
     mysql.query(sql, UserName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
@@ -104,7 +104,7 @@ router.get(
       "'";
     mysql.query(sql, UserName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
@@ -126,7 +126,7 @@ router.get(
       "'";
     mysql.query(sql, UserName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
@@ -187,7 +187,7 @@ router.get(
       "SELECT * FROM Picture Where PictureName like '" + PictureName + "'";
     mysql.query(sql, PictureName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
@@ -222,7 +222,7 @@ router.get(
       "' GROUP BY PictureID, 'Level' ORDER BY Point LIMIT 5 '";
     mysql.query(sql, UserName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
