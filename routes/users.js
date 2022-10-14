@@ -164,12 +164,14 @@ router.get(
   "/DAL/getPicByNamePicture/:PictureName",
   function getPicByNamePicture(req, res, next) {
     let PictureName = req.params["PictureName"];
+    console.log(PictureName);
     PictureName = PictureName.slice(1, PictureName.length);
+
     let sql =
       "SELECT * FROM Picture Where PictureName like '" + PictureName + "'";
     mysql.query(sql, PictureName, (err, d) => {
       res.json(d);
-      return d;
+      //return d;
     });
   }
 );
@@ -192,14 +194,13 @@ router.get(
 //
 
 var getPicDTAll = (request, response) => {
+  //response.send("results");
   mysql.query("SELECT * FROM Picture", (error, results) => {
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.send(results);
-      return results;
-    };
+    if (error) {
+      throw error;
+    }
+    response.send(results);
+    //return results;
   });
 };
 router.get("/getPicDTAll", getPicDTAll);
