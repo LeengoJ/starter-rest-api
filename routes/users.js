@@ -109,12 +109,12 @@ router.get(
   }
 );
 router.get(
-  "/DAL/getUsersByNameAndPassAll:UserName/:Password",
+  "/DAL/getUsersByNameAndPassAll/:UserName/:Password",
   function getUsersByNameAndPassAll(req, res, next) {
     let UserName = req.params["UserName"];
     let PassWord = req.params["Password"];
-    UserName = UserName.slice(1, UserName.length);
-    PassWord = PassWord.slice(1, PassWord.length);
+    UserName = UserName.slice(1, UserName.length - 1);
+    //PassWord = PassWord.slice(1, PassWord.length);
     console.log(PassWord);
     console.log(UserName);
 
