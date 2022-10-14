@@ -59,19 +59,19 @@ router.get("/getUsers", getUsers);
 //     }
 //   );
 // }); //"/ DAL / getUsersByName? UserName="+UserName
-router.get(
-  "/DAL/getUsersByName/:UserName",
-  function getUsersByName(req, res, next) {
-    let UserName = req.params.UserName;
-    UserName = UserName.slice(1, UserName.length);
-    console.log(UserName);
-    let sql = "SELECT UserID FROM User WHERE UserName like '" + UserName + "'";
-    mysql.query(sql, UserName, (err, d) => {
-      res.json(d);
-      return d;
-    });
-  }
-);
+// router.get(
+//   "/DAL/getUsersByName/:UserName",
+//   function getUsersByName(req, res, next) {
+//     let UserName = req.params.UserName;
+//     UserName = UserName.slice(1, UserName.length);
+//     console.log(UserName);
+//     let sql = "SELECT UserID FROM User WHERE UserName like '" + UserName + "'";
+//     mysql.query(sql, UserName, (err, d) => {
+//       res.json(d);
+//       return d;
+//     });
+//   }
+// );
 //------------------------------------------------------------
 router.get(
   "/DAL/getUsersByName/:UserName",
@@ -109,7 +109,7 @@ router.get(
   }
 );
 router.get(
-  "/DAL/getUsersByNameAndPass:UserName/:Password",
+  "/DAL/getUsersByNameAndPassAll:UserName/:Password",
   function getUsersByNameAndPassAll(req, res, next) {
     let UserName = req.params["UserName"];
     let PassWord = req.params["Password"];
@@ -132,7 +132,7 @@ router.get(
 );
 /* GET quotes listing. */
 
-router.get("/getTop3Users", getTop3Users);
+//router.get("/getTop3Users", getTop3Users);
 
 // async function CreateAccount(UserDTO) {
 //   const result = await mysql.query(
@@ -167,7 +167,7 @@ router.get(
     PictureName = PictureName.slice(1, PictureName.length);
     let sql =
       "SELECT * FROM Picture Where PictureName like '" + PictureName + "'";
-    mysql.query(sql, UserName, (err, d) => {
+    mysql.query(sql, PictureName, (err, d) => {
       res.json(d);
       return d;
     });
@@ -176,14 +176,14 @@ router.get(
 ///
 
 router.get(
-  "/DAL/getPicByNamePicDT:PictureName",
+  "/DAL/getPicByNamePicDT/:PictureName",
   function getPicByNamePicDT(req, res, next) {
     let PictureName = req.params["PictureName"];
     PictureName = PictureName.slice(1, PictureName.length);
 
     let sql =
       "SELECT * FROM Picture Where PictureName like '" + PictureName + "'";
-    mysql.query(sql, UserName, (err, d) => {
+    mysql.query(sql, PictureName, (err, d) => {
       res.json(d);
       return d;
     });
@@ -208,7 +208,7 @@ router.get("/getPicDTAll", getPicDTAll);
 
 router.get(
   "/DAL/GetDeTailFiveWinner:PictureID/:Level",
-  function getPicByNamePicDT(req, res, next) {
+  function GetDeTailFiveWinner(req, res, next) {
     let PictureID = req.params["PictureID"];
     let Level = req.params["Level"];
     PictureID = PictureID.slice(1, Level.length);
@@ -225,6 +225,5 @@ router.get(
     });
   }
 );
-router.get("/GetDeTailFiveWinner", GetDeTailFiveWinner);
 //receive strings
 module.exports = router;
