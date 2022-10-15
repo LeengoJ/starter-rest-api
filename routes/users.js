@@ -228,15 +228,15 @@ router.get(
     let PictureID = req.params["PictureID"];
     let Level = req.params["Level"];
     PictureID = PictureID.slice(1, PictureID.length);
-    PictureID = PictureID.slice(1, PictureID.length);
+    Level = Level.slice(1, Level.length);
     //SELECT TOP 5 WITH TIES USERID , PICTUREID, LEVEL, POINT, TIME FROM WINNER
     //W WHERE W.PICTUREID = @pictureID AND W.LEVEL = @level ORDER BY W.POINT, W.TIME
     let sql =
-      "SELECT UserID, PictureID, 'Level', Point FROM Winner W WHERE W.PictureID like '" +
+      "SELECT UserID, PictureID, Level_play, Point FROM Winner W WHERE W.PictureID like '" +
       PictureID +
-      "'AND W.Level like '" +
+      "'AND W.Level_play like '" +
       Level +
-      "' GROUP BY PictureID, 'Level' ORDER BY Point,'Time' LIMIT 5 ";
+      "' GROUP BY PictureID, Level_play ORDER BY Point,'Time' LIMIT 5 ";
     mysql.query(sql, [], (err, d) => {
       // res.send("" + err);
       // return -1;
@@ -261,11 +261,11 @@ router.get(
     console.log(Level + "1212");
 
     let sql =
-      "SELECT UserID FROM User WHERE UserID like '" +
+      "SELECT UserID FROM Winner WHERE UserID like '" +
       UserID +
       "' AND  PictureID like '" +
       PictureID +
-      "' AND 'Level' like '" +
+      "' AND Level_play like '" +
       Level +
       "'";
     mysql.query(sql, [], (err, d) => {
@@ -285,8 +285,12 @@ router.all("/DAL/InsertWinner/:datas", function InsertWinner(req, res, next) {
     TimeSecond: up[5],
   };
   console.log(data);
+  var x =
+    "INSERT INTO `Winner`(`UserID`, `PictureID`, `Level_play`, `Point`, `TimeSecond`) VALUES ";
   //let sql = `insert into  Winner(UserID, PictureID,'Level', Point, TimeSecond) values(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
-  let sql = `UPDATE Winner SET TimeSecond = '${data.TimeSecond}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND 'Level' = ${data.Level};`;
+  let sql =
+    x +
+    `(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
 
   mysql.query(sql, (err, d) => {
     if (err) throw err;
@@ -305,7 +309,7 @@ router.all(
       TimeSecond: up[5],
     };
     console.log(data);
-    let sql = `UPDATE Winner SET Point = '${data.Point}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND 'Level' = ${data.Level};`;
+    let sql = `UPDATE Winner SET Point = '${data.Point}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND Level_play = ${data.Level};`;
 
     mysql.query(sql, (err, d) => {
       if (err) throw err;
@@ -326,7 +330,7 @@ router.all(
       TimeSecond: up[5],
     };
     console.log(data);
-    let sql = `UPDATE Winner SET TimeSecond = '${data.TimeSecond}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND 'Level' = ${data.Level};`;
+    let sql = `UPDATE Winner SET TimeSecond = '${data.TimeSecond}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND Level_play = ${data.Level};`;
 
     mysql.query(sql, (err, d) => {
       if (err) throw err;
