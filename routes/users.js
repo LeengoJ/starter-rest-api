@@ -297,5 +297,27 @@ router.all("/DAL/InsertWinner/:datas", function InsertWinner(req, res, next) {
     res.json({ thongbao: "Đã chèn " });
   });
 });
+router.all("/DAL/UpdateWinner/:datas", function InsertWinner(req, res, next) {
+  var up = req.params["datas"].split(":");
+  var data = {
+    UserID: up[1],
+    PictureID: up[2],
+    Level: up[3],
+    Point: up[4],
+    TimeSecond: up[5],
+  };
+  console.log(data);
+  var x =
+    "INSERT INTO `Winner`(`UserID`, `PictureID`, `Level`, `Point`, `TimeSecond`) VALUES ";
+  //let sql = `insert into  Winner(UserID, PictureID,'Level', Point, TimeSecond) values(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
+  let sql =
+    x +
+    `(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
+
+  mysql.query(sql, (err, d) => {
+    if (err) throw err;
+    res.json({ thongbao: "Đã chèn " });
+  });
+});
 //receive strings
 module.exports = router;
