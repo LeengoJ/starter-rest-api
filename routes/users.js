@@ -94,7 +94,7 @@ router.get(
     let UserID = req.params.UserID;
     UserID = UserID.slice(1, UserID.length);
     console.log(UserID);
-    let sql = "SELECT UserID FROM User WHERE UserName like '" + UserID + "'";
+    let sql = "SELECT UserID FROM User WHERE UserID like '" + UserID + "'";
     mysql.query(sql, [], (err, d) => {
       res.json(d);
       //return d;
