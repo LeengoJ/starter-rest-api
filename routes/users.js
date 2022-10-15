@@ -253,7 +253,7 @@ router.get(
     let PictureID = req.params["PictureID"];
     let Level = req.params["Level"];
     UserID = UserID.slice(1, UserID.length);
-    PassWord = PassWord.slice(1, PictureID.length);
+    PictureID = PictureID.slice(1, PictureID.length);
     Level = Level.slice(1, Level.length);
 
     console.log(PictureID + "1212");
@@ -261,7 +261,7 @@ router.get(
     console.log(Level + "1212");
 
     let sql =
-      "SELECT UserID FROM User WHERE UserName like '" +
+      "SELECT UserID FROM User WHERE UserID like '" +
       UserID +
       "' AND  PictureID like '" +
       PictureID +
@@ -285,12 +285,8 @@ router.all("/DAL/InsertWinner/:datas", function InsertWinner(req, res, next) {
     TimeSecond: up[5],
   };
   console.log(data);
-  var x =
-    "INSERT INTO `Winner`(`UserID`, `PictureID`, `Level`, `Point`, `TimeSecond`) VALUES ";
   //let sql = `insert into  Winner(UserID, PictureID,'Level', Point, TimeSecond) values(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
-  let sql =
-    x +
-    `(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
+  let sql = `UPDATE Winner SET TimeSecond = '${data.TimeSecond}' WHERE UserID = '${data.UserID}' AND PictureID = ${data.PictureID} AND 'Level' = ${data.Level};`;
 
   mysql.query(sql, (err, d) => {
     if (err) throw err;
