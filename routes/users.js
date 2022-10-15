@@ -250,21 +250,21 @@ router.get(
   "/DAL/getWinnersByUid_Pid_lv/:UserID/:PictureID/:Level",
   function getUsersByNameAndPass(req, res, next) {
     let UserID = req.params["UserID"];
-    let PassWord = req.params["PictureID"];
+    let PictureID = req.params["PictureID"];
     let Level = req.params["Level"];
     UserID = UserID.slice(1, UserID.length);
-    PassWord = PassWord.slice(1, PassWord.length);
+    PassWord = PassWord.slice(1, PictureID.length);
     Level = Level.slice(1, Level.length);
 
-    console.log(PassWord + "1212");
+    console.log(PictureID + "1212");
     console.log(UserID + "1212");
     console.log(Level + "1212");
 
     let sql =
       "SELECT UserID FROM User WHERE UserName like '" +
       UserID +
-      "' AND  Password like '" +
-      PassWord +
+      "' AND  PictureID like '" +
+      PictureID +
       "' AND 'Level' like '" +
       Level +
       "'";
