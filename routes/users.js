@@ -261,7 +261,7 @@ router.get(
     console.log(Level + "1212");
 
     let sql =
-      "SELECT UserID FROM Winner WHERE UserID like '" +
+      "SELECT * FROM Winner WHERE UserID like '" +
       UserID +
       "' AND  PictureID like '" +
       PictureID +
