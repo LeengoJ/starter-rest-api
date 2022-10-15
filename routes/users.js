@@ -86,6 +86,20 @@ router.get(
     });
   }
 );
+
+router.get(
+  "/DAL/getUsersByUserID/:UserID",
+  function getUsersByName(req, res, next) {
+    let UserID = req.params.UserID;
+    UserID = UserID.slice(1, UserID.length);
+    console.log(UserID);
+    let sql = "SELECT UserID FROM User WHERE UserName like '" + UserID + "'";
+    mysql.query(sql, UserName, (err, d) => {
+      res.json(d);
+      //return d;
+    });
+  }
+);
 router.get(
   "/DAL/getUsersByNameAndPass:UserName/:Password",
   function getUsersByNameAndPass(req, res, next) {
@@ -208,23 +222,28 @@ router.get("/getPicDTAll", getPicDTAll);
 // HET PHAN PICTUREDAL
 
 router.get(
-  "/DAL/GetDeTailFiveWinner:PictureID/:Level",
+  "/DAL/GetDeTailFiveWinner/:PictureID/:Level",
   function GetDeTailFiveWinner(req, res, next) {
     let PictureID = req.params["PictureID"];
     let Level = req.params["Level"];
-    PictureID = PictureID.slice(1, Level.length);
-    Level = Level.slice(1, Level.length);
+    PictureID = PictureID.slice(1, PictureID.length);
+    PictureID = PictureID.slice(1, PictureID.length);
+    //SELECT TOP 5 WITH TIES USERID , PICTUREID, LEVEL, POINT, TIME FROM WINNER
+    //W WHERE W.PICTUREID = @pictureID AND W.LEVEL = @level ORDER BY W.POINT, W.TIME
     let sql =
       "SELECT UserID, PictureID, 'Level', Point FROM Winner W WHERE W.PictureID like '" +
       PictureID +
       "'AND W.Level like '" +
       Level +
-      "' GROUP BY PictureID, 'Level' ORDER BY Point LIMIT 5 '";
-    mysql.query(sql, UserName, (err, d) => {
+      "' GROUP BY PictureID, 'Level' ORDER BY Point,'Time' LIMIT 5 ";
+    mysql.query(sql, [], (err, d) => {
+      // res.send("" + err);
+      // return -1;
       res.json(d);
-      //return d;
+      return d;
     });
   }
 );
+
 //receive strings
 module.exports = router;
