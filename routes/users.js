@@ -24,6 +24,7 @@ var getUsers = (request, response) => {
 };
 router.get("/getUsers", getUsers);
 //////////////////////////////////////////
+
 // var getUsersByName = (request, response) => {
 //   mysql.query(
 //     "SELECT * FROM User WHERE UserName = @userName",
@@ -76,11 +77,11 @@ router.get("/getUsers", getUsers);
 router.get(
   "/DAL/getUsersByName/:UserName",
   function getUsersByName(req, res, next) {
-    let UserName = req.params.UserName;
+    let UserName = req.params["UserName"];
     UserName = UserName.slice(1, UserName.length);
     console.log(UserName);
     let sql = "SELECT UserID FROM User WHERE UserName like '" + UserName + "'";
-    mysql.query(sql, UserName, (err, d) => {
+    mysql.query(sql, [], (err, d) => {
       res.json(d);
       //return d;
     });
@@ -94,7 +95,7 @@ router.get(
     UserID = UserID.slice(1, UserID.length);
     console.log(UserID);
     let sql = "SELECT UserID FROM User WHERE UserName like '" + UserID + "'";
-    mysql.query(sql, UserName, (err, d) => {
+    mysql.query(sql, [], (err, d) => {
       res.json(d);
       //return d;
     });
@@ -245,5 +246,56 @@ router.get(
   }
 );
 
+router.get(
+  "/DAL/getWinnersByUid_Pid_lv/:UserID/:PictureID/:Level",
+  function getUsersByNameAndPass(req, res, next) {
+    let UserName = req.params["UserID"];
+    let PassWord = req.params["PictureID"];
+    let Level = req.params["Level"];
+    UserName = UserName.slice(1, UserName.length);
+    PassWord = PassWord.slice(1, PassWord.length);
+    Level = Level.slice(1, Level.length);
+
+    console.log(PassWord + "1212");
+    console.log(UserName + "1212");
+    console.log(Level + "1212");
+
+    let sql =
+      "SELECT UserID FROM User WHERE UserName like '" +
+      UserName +
+      "' AND  Password like '" +
+      PassWord +
+      "' AND 'Level' like '" +
+      Level +
+      "'";
+    mysql.query(sql, UserName, (err, d) => {
+      res.json(d);
+      //return d;
+    });
+  }
+);
+
+router.all("/DAL/InsertWinner/:datas", function InsertWinner(req, res, next) {
+  var up = req.params["datas"].split(":");
+  var data = {
+    UserID: up[1],
+    PictureID: up[2],
+    Level: up[3],
+    Point: up[4],
+    TimeSecond: up[5],
+  };
+  console.log(data);
+  var x =
+    "INSERT INTO `Winner`(`UserID`, `PictureID`, `Level`, `Point`, `TimeSecond`) VALUES ";
+  //let sql = `insert into  Winner(UserID, PictureID,'Level', Point, TimeSecond) values(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
+  let sql =
+    x +
+    `(${data.UserID},${data.PictureID},${data.Level},${data.Point},${data.TimeSecond})`;
+
+  mysql.query(sql, (err, d) => {
+    if (err) throw err;
+    res.json({ thongbao: "Đã chèn " });
+  });
+});
 //receive strings
 module.exports = router;
