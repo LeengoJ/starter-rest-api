@@ -232,11 +232,11 @@ router.get(
     //SELECT TOP 5 WITH TIES USERID , PICTUREID, LEVEL, POINT, TIME FROM WINNER
     //W WHERE W.PICTUREID = @pictureID AND W.LEVEL = @level ORDER BY W.POINT, W.TIME
     let sql =
-      "SELECT UserID, PictureID, Level_play, Point FROM Winner W WHERE W.PictureID like '" +
+      "SELECT UserID, PictureID, Level_play, Point,TimeSecond FROM Winner W WHERE W.PictureID like '" +
       PictureID +
       "'AND W.Level_play like '" +
       Level +
-      "' GROUP BY PictureID, Level_play ORDER BY Point,'Time' LIMIT 5 ";
+      "' GROUP BY PictureID, Level_play ORDER BY Point,TimeSecond LIMIT 5 ";
     mysql.query(sql, [], (err, d) => {
       // res.send("" + err);
       // return -1;
