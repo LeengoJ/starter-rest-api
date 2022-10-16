@@ -236,7 +236,7 @@ router.get(
       PictureID +
       "'AND W.Level_play like '" +
       Level +
-      "' GROUP BY PictureID, Level_play ORDER BY Point,TimeSecond LIMIT 5 ";
+      "' ORDER BY Point,TimeSecond LIMIT 5 ";
     mysql.query(sql, [], (err, d) => {
       // res.send("" + err);
       // return -1;
