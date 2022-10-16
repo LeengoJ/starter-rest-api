@@ -5,9 +5,9 @@ var mysql = require("mysql");
 //local mysql db connection
 var connection = mysql.createConnection({
   host: "sql6.freemysqlhosting.net",
-  user: "sql6525333",
-  password: "y2b22NzkHd",
-  database: "sql6525333",
+  user: "sql6526946",
+  password: "Ku5weiQuCf",
+  database: "sql6526946",
   port: 3306,
 });
 // connect to database
